@@ -1,7 +1,21 @@
-import React from 'react'
+import { useState } from 'react'
 import { Link } from "react-router-dom"
 
-const Intro = () => {
+const Home = () => {
+    const [players, setPlayers] = useState({
+        playerOne: {
+            name: '',
+            simbolSelected: ''
+        }, playerTwo: {
+            name: '',
+            simbolSelected: ''
+        }
+    })
+
+    const handleChange = (e) => {
+        setPlayers({ ...players, [e.target.name]: { ...players[e.target.name], name: e.target.value } })
+    }
+
     return (
         <>
             <div className='container'>
@@ -15,7 +29,7 @@ const Intro = () => {
                                 <form>
                                     <div className='d-flex'>
                                         <div className='w-80 player-box'>
-                                            <input required type="text" className="form-control " placeholder="PLAYER 1" aria-label="Recipient's username" />
+                                            <input required type="text" className="form-control " placeholder="PLAYER 1" aria-label="Recipient's username" name='playerOne' value={players.playerOne.name} onChange={action.handleChange} />
                                         </div>
                                         <div>
                                             <button type="button" class="btn btn-outline-danger">X</button>
@@ -24,7 +38,7 @@ const Intro = () => {
                                     </div>
                                     <div className='d-flex'>
                                         <div className='w-80 player-box'>
-                                            <input required type="text" className="form-control " placeholder="PLAYER 2" aria-label="Recipient's username" />
+                                            <input required type="text" className="form-control " placeholder="PLAYER 2" aria-label="Recipient's username" name='playerTwo' value={players.playerTwo.name} onChange={handleChange} />
                                         </div>
                                         <div>
                                             <button type="button" class="btn btn-outline-danger">X</button>
@@ -32,7 +46,7 @@ const Intro = () => {
                                         </div>
                                     </div>
                                 </form>
-                                <Link>
+                                <Link to='/game'>
                                     <button type='submit' className="btn btn-primary btn-lg btn-block">START</button>
                                 </Link>
                             </div>
@@ -44,4 +58,4 @@ const Intro = () => {
     )
 }
 
-export default Intro
+export default Home

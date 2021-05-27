@@ -1,36 +1,28 @@
-import React from "react";
-import getState from "./flux.js";
+import { createContext, useState } from 'react'
+import getState from './flux'
 
-export const Context = React.createContext(null);
+export const Context = createContext(null)
 
-const injectContext = PassedComponent => {
-	class StoreWrapper extends React.Component {
-		constructor(props) {
-			super(props);
-			this.state = getState({
-				getStore: () => this.state.store,
-				getActions: () => this.state.actions,
-				setStore: updatedStore => {
-					this.setState({
-						store: Object.assign(this.state.store, updatedStore)
-					});
-					//localStorage.setItem("userStore", JSON.stringify(this.state.store.loginUserData));
-				}
-			});
-		}
-		componentDidMount() {
-			//const previusStore = localStorage.getItem("userStore");
-			//if (previusStore) this.setState({ store: JSON.parse(previusStore) });
-			//if (previusStore) this.setState({ store: { ...this.state.store, loginUserData: JSON.parse(previusStore) } });
-		}
-		render() {
-			return (
-				<Context.Provider value={this.state}>
-					<PassedComponent {...this.props} />
-				</Context.Provider>
-			);
-		}
+const injectContext = (App) => {
+	const StoreWrapper = (props) => {
+		const [state, setState] = useState(
+			getState({
+				getStore: () => state.store,
+				getActions: () => state.actions,
+				setStore: (updateStore) =>
+					setState({
+						store: Object.assign(state.store, updateStore),
+						actions: { ...state.actions },
+					}),
+			})
+		)
+
+		return (
+			<Context.Provider value={state}>
+				<App {...props} />
+			</Context.Provider>
+		)
 	}
-	return StoreWrapper;
-};
-export default injectContext;
+	return StoreWrapper
+}
+export default injectContext
