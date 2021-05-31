@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import { Context } from '../../../store/appContex'
 
 function Game() {
-
     const { store } = useContext(Context)
+
+    
     return (
         <>
             <div className='container'>
                 <div className="border-row">
-                    <button type="button" className="btn btn-outline-danger">{store.player}</button>
+                    <button type="button" className="btn btn-outline-danger">XO</button>
                     <button type="button" className="btn btn-outline-danger">XO</button>
                     <button type="button" className="btn btn-outline-danger">XO</button>
                 </div>

@@ -3,8 +3,10 @@ import { Link } from "react-router-dom"
 import { Context } from '../../../store/appContex'
 
 const Home = () => {
-
     const { store, actions } = useContext(Context)
+
+    const symbolPlayerOneX = store.playerOne.simbolSelected === 'x' ? 'bg-button' : ''
+    const symbolPlayerOneO = store.playerOne.simbolSelected === 'o' ? 'bg-button' : ''
 
     return (
         <>
@@ -22,8 +24,8 @@ const Home = () => {
                                             <input required type="text" className="form-control " placeholder="PLAYER 1" aria-label="Recipient's username" name='playerOne' value={store.playerOne.name} onChange={actions.handleChange} />
                                         </div>
                                         <div>
-                                            <button type="button" onClick={() => { actions.handleSelect('X') }} className="btn btn-outline-danger">X</button>
-                                            <button type="button" onClick={() => { actions.handleSelect('O') }} className="btn btn-outline-dark">O</button>
+                                            <button type="button" onClick={() => { actions.handleSelect('X') }} className={`btn btn-outline-danger ${symbolPlayerOneX}`}>X</button>
+                                            <button type="button" onClick={() => { actions.handleSelect('O') }} className={`btn btn-outline-dark ${symbolPlayerOneO}`}>O</button>
                                         </div>
                                     </div>
                                     <div className='d-flex'>
@@ -31,8 +33,8 @@ const Home = () => {
                                             <input required type="text" className="form-control " placeholder="PLAYER 2" aria-label="Recipient's username" name='playerTwo' value={store.playerTwo.name} onChange={actions.handleChange} />
                                         </div>
                                         <div>
-                                            <button type="button" onClick={() => { actions.handleSelect('O') }} className="btn btn-outline-danger">X</button>
-                                            <button type="button" onClick={() => { actions.handleSelect('X') }} className="btn btn-outline-dark">O</button>
+                                            <button type="button" onClick={() => { actions.handleSelect('O') }} className={`btn btn-outline-danger ${symbolPlayerOneO}`}>X</button>
+                                            <button type="button" onClick={() => { actions.handleSelect('X') }} className={`btn btn-outline-dark ${symbolPlayerOneX}`}>O</button>
                                         </div>
                                     </div>
                                 </form>

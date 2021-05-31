@@ -23,3 +23,7 @@ code {
 .player-box{
   margin-bottom: 20px;
 }
+
+.bg-button{
+  background-color: red;
+}
