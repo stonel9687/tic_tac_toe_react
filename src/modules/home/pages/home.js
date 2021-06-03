@@ -1,12 +1,27 @@
-import { useContext } from 'react'
-import { Link } from "react-router-dom"
+import { useContext, useState } from 'react'
+import { useHistory } from "react-router-dom"
 import { Context } from '../../../store/appContex'
 
 const Home = () => {
+    const history = useHistory()
     const { store, actions } = useContext(Context)
+    const [errorMessage, setErrorMessage] = useState('')
+
 
     const symbolPlayerOneX = store.playerOne.simbolSelected === 'x' ? 'bg-button' : ''
     const symbolPlayerOneO = store.playerOne.simbolSelected === 'o' ? 'bg-button' : ''
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        const players = 
+        store.playerOne.simbolSelected !== '' &&
+            store.playerTwo.simbolSelected !== '' &&
+            store.playerOne.name !== '' &&
+            store.playerTwo.name !== ''
+
+        players ? history.push('/game') : setErrorMessage('Debes completar los campos')
+        console.log(players)
+    }
 
     return (
         <>
@@ -18,10 +33,10 @@ const Home = () => {
                                 <div className='text-center'>
                                     <h1 className='font-white'>TIC TAC TOE</h1>
                                 </div>
-                                <form>
+                                <form onSubmit={handleSubmit}>
                                     <div className='d-flex'>
                                         <div className='w-80 player-box'>
-                                            <input required type="text" className="form-control " placeholder="PLAYER 1" aria-label="Recipient's username" name='playerOne' value={store.playerOne.name} onChange={actions.handleChange} />
+                                            <input  type="text" className="form-control " placeholder="PLAYER 1" aria-label="Recipient's username" name='playerOne' value={store.playerOne.name} onChange={actions.handleChange} />
                                         </div>
                                         <div>
                                             <button type="button" onClick={() => { actions.handleSelect('X') }} className={`btn btn-outline-danger ${symbolPlayerOneX}`}>X</button>
@@ -30,17 +45,16 @@ const Home = () => {
                                     </div>
                                     <div className='d-flex'>
                                         <div className='w-80 player-box'>
-                                            <input required type="text" className="form-control " placeholder="PLAYER 2" aria-label="Recipient's username" name='playerTwo' value={store.playerTwo.name} onChange={actions.handleChange} />
+                                            <input type="text" className="form-control " placeholder="PLAYER 2" aria-label="Recipient's username" name='playerTwo' value={store.playerTwo.name} onChange={actions.handleChange} />
                                         </div>
                                         <div>
                                             <button type="button" onClick={() => { actions.handleSelect('O') }} className={`btn btn-outline-danger ${symbolPlayerOneO}`}>X</button>
                                             <button type="button" onClick={() => { actions.handleSelect('X') }} className={`btn btn-outline-dark ${symbolPlayerOneX}`}>O</button>
                                         </div>
                                     </div>
+                                    <button type='submit' className="btn btn-primary btn-lg btn-block" >START</button>
+                                    <p>{errorMessage}</p>
                                 </form>
-                                <Link to='/game'>
-                                    <button type='submit' className="btn btn-primary btn-lg btn-block">START</button>
-                                </Link>
                             </div>
                         </div>
                     </div>

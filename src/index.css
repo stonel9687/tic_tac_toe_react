@@ -27,3 +27,15 @@ code {
 .bg-button{
   background-color: red;
 }
+
+.info-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.X {
+  color: red;
+}
+.O {
+  color: green;
+}
