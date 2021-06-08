@@ -15,7 +15,6 @@ const getState = ({ getStore, setStore, getActions }) => {
                 const store = getStore()
                 const player = { ...store[e.target.name], name: e.target.value }
                 console.log(player)
-
                 setStore({
                     [e.target.name]: player
                 })
@@ -36,11 +35,7 @@ const getState = ({ getStore, setStore, getActions }) => {
                     playerOne: symbolEdited,
                     playerTwo: symbolEditedTwo
                 })
-            },
-
-
-
-
+            }
         }
     }
 }

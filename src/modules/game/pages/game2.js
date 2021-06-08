@@ -18,6 +18,10 @@ export const Game2 = () => {
     const [boton9, setBoton9] = useState('')
     const [xIsNext, setXIsNext] = useState(true)
     const [winner, setWinner] = useState('')
+    const [winX, setWinX] = useState('')
+    const [winO, setWinO] = useState('')
+    const [draw, setDraw] = useState('')
+    const disableButonsWin = false
 
     const combinaciones = [
         ['a1', 'b1', 'c1'],
@@ -29,7 +33,6 @@ export const Game2 = () => {
         ['a1', 'b2', 'c3'],
         ['a3', 'b2', 'c1'],
     ]
-
     // se crea variable con ternario para saber si X va primero o O va primero
     // se crea funcion handleClick y dentro del parametro coloca una i de iteracion
     let xO = xIsNext ? 'X' : 'O'
@@ -48,7 +51,8 @@ export const Game2 = () => {
                     }
                 }, 0)
                 if (isXWinner === 3) {
-                    setWinner('Gano X')
+                    setWinner(`El Ganador es ${store.playerOne.name}`)
+                    setWinX(+1)
                 }
             })
         } else {
@@ -64,7 +68,8 @@ export const Game2 = () => {
                     }
                 }, 0)
                 if (isOWinner === 3) {
-                    setWinner('Gano O')
+                    setWinner(`El Ganador es ${store.playerTwo.name}`)
+                    setWinO(+1)
                 }
             })
         }
@@ -127,126 +132,160 @@ export const Game2 = () => {
             setPositionsO([...positionsO, position])
             isWinner(cloneo)
         }
-        setPositions([...positions, position])
+        //        setPositions([...positions, position])
     }
 
     const handleClick4 = () => {
         const position = 'a2'
-        let clone = []
+        let cloneo = []
+        let clonex = []
         if (xO == 'X') {
             setBoton4(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton4(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
-        setPositions([...positions, position])
+        //        setPositions([...positions, position])
     }
 
     const handleClick5 = () => {
         const position = 'b2'
-        let clone = []
+        let cloneo = []
+        let clonex = []
         if (xO == 'X') {
             setBoton5(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton5(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
-        setPositions([...positions, position])
+        //      setPositions([...positions, position])
     }
 
     const handleClick6 = () => {
         const position = 'c2'
-        let clone = []
+        let cloneo = []
+        let clonex = []
         if (xO == 'X') {
             setBoton6(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton6(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
-        setPositions([...positions, position])
+        //     setPositions([...positions, position])
     }
 
     const handleClick7 = () => {
         const position = 'a3'
-        let clone = []
+        let cloneo = []
+        let clonex = []
         if (xO == 'X') {
             setBoton7(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton7(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
-        setPositions([...positions, position])
+        //     setPositions([...positions, position])
     }
 
     const handleClick8 = () => {
         const position = 'b3'
-        let clone = []
+        let cloneo = []
+        let clonex = []
         if (xO == 'X') {
             setBoton8(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton8(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
     }
 
     const handleClick9 = () => {
         const position = 'c3'
-        let clone = []
+        let cloneo = []
+        let clonex = []
         if (xO == 'X') {
             setBoton9(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton9(xO)
             setXIsNext(!xIsNext)
-            clone = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
+    }
+
+    const handleRetry=()=>{
+                setPositionsX([])
+        setPositionsO([])
+        setBoton1('')
+        setBoton2('')
+        setBoton3('')
+        setBoton4('')
+        setBoton5('')
+        setBoton6('')
+        setBoton7('')
+        setBoton8('')
+        setBoton9('')
+        setXIsNext(true)
+        setWinner('')
     }
 
     return (
         <>
             <div className='container'>
                 <div className="border-row">
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick} disabled={boton1.length !== 0}>  {boton1}</button>
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick2} disabled={boton2.length !== 0}>{boton2}</button>
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick3} disabled={boton3.length !== 0}>{boton3}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick} disabled={boton1.length !== 0 || winner}>{boton1}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick2} disabled={boton2.length !== 0 || winner}>{boton2}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick3} disabled={boton3.length !== 0 || winner}>{boton3}</button>
                 </div>
                 <div className="border-row">
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick4} disabled={boton4.length !== 0}>{boton4}</button>
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick5} disabled={boton5.length !== 0}>{boton5}</button>
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick6} disabled={boton6.length !== 0}>{boton6}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick4} disabled={boton4.length !== 0 || winner}>{boton4}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick5} disabled={boton5.length !== 0 || winner}>{boton5}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick6} disabled={boton6.length !== 0 || winner}>{boton6}</button>
                 </div>
                 <div className="border-row">
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick7} disabled={boton7.length !== 0 && winner}>{boton7}</button>
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick8} disabled={boton8.length !== 0}>{boton8}</button>
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick9} disabled={boton9.length !== 0}>{boton9}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick7} disabled={boton7.length !== 0 || winner}>{boton7}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick8} disabled={boton8.length !== 0 || winner}>{boton8}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick9} disabled={boton9.length !== 0 || winner}>{boton9}</button>
                 </div>
             </div>
 
@@ -257,19 +296,19 @@ export const Game2 = () => {
                 <h6>Player 1</h6>
                 <h6>{store.playerOne.name}</h6>
                 <h6></h6>
-                <p> 5 Wins</p>
+                <p> {winX} Wins</p>
                 <hr />
                 <h6>Player 2</h6>
                 <h6>{store.playerTwo.name}</h6>
-                <p>3 Wins</p>
+                <p>{winO} Wins</p>
                 <hr />
 
                 <p>2 deuce</p>
-                <Link to='/win-view'>
-                    <button>Ganador</button>
+                <Link to='/'>
+                    <button>Exit</button>
                 </Link>
+                <button onClick={handleRetry}>Play Again</button>
             </div>
         </>
     )
 }
-
