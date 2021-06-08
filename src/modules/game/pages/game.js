@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Context } from '../../../store/appContex'
-import Board from '../components/board';
+
 
 function Game() {
     const { store } = useContext(Context)
@@ -86,7 +86,6 @@ function Game() {
 
 
             <h1>React Tic Tac Toe - With Hooks</h1>
-            <Board squares={history[stepNumber]} onClick={handleClick} />
             <div className="info-wrapper">
                 <div>
                     <h3>History</h3>
