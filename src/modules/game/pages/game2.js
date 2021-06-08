@@ -19,103 +19,115 @@ export const Game2 = () => {
     const [xIsNext, setXIsNext] = useState(true)
     const [winner, setWinner] = useState('')
 
-    const combinaciones = ['a1', 'b1', 'c1']
+    const combinaciones = [
+        ['a1', 'b1', 'c1'],
+        ['a2', 'b2', 'c2'],
+        ['a3', 'b3', 'c3'],
+        ['a1', 'a2', 'a3'],
+        ['b1', 'b2', 'b3'],
+        ['c1', 'c2', 'c3'],
+        ['a1', 'b2', 'c3'],
+        ['a3', 'b2', 'c1'],
+    ]
 
     // se crea variable con ternario para saber si X va primero o O va primero
     // se crea funcion handleClick y dentro del parametro coloca una i de iteracion
     let xO = xIsNext ? 'X' : 'O'
 
     const isWinner = (clone) => {
-        let isXWinner = combinaciones.reduce((acc, iter) => {
-            let isX = clone.some((item) => {
-                return iter === item
+        if (xO === 'X') {
+            combinaciones.forEach((index) => {
+                const isXWinner = index.reduce((acc, iter) => {
+                    let isX = clone.some((item) => {
+                        return iter === item
+                    })
+                    if (isX) {
+                        return acc + 1
+                    } else {
+                        return acc
+                    }
+                }, 0)
+                if (isXWinner === 3) {
+                    setWinner('Gano X')
+                }
             })
-            if (isX) {
-                return acc + 1
-            } else {
-                return acc
-            }
-        }, 0)
-        if (isXWinner === 3) {
-            setWinner('Gano X')
-        }
-
-        let isOWinner = combinaciones.reduce((acc, iter) => {
-            let isO = clone.some((item) => {
-                return iter === item
+        } else {
+            combinaciones.forEach((index) => {
+                const isOWinner = index.reduce((acc, iter) => {
+                    let isO = clone.some((item) => {
+                        return iter === item
+                    })
+                    if (isO) {
+                        return acc + 1
+                    } else {
+                        return acc
+                    }
+                }, 0)
+                if (isOWinner === 3) {
+                    setWinner('Gano O')
+                }
             })
-            if (isO) {
-                return acc + 1
-            } else {
-                return acc
-            }
-        }, 0)
-        if (isOWinner === 3) {
-            setWinner('Gano O')
         }
     }
 
     const handleClick = () => {
         const position = 'a1'
-        let cloneX = []
-        let cloneO = []
+        let clonex = []
+        let cloneo = []
         if (xO == 'X') {
             setBoton1(xO)
             setXIsNext(!xIsNext)
-            cloneX = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton1(xO)
             setXIsNext(!xIsNext)
-            cloneO = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
         setPositions([...positions, position])
-        isWinner(clone)
-        console.log('X', positionsX)
-        console.log('O', positionsO)
     }
 
     const handleClick2 = () => {
         const position = 'b1'
-        let cloneX = []
-        let cloneO = []
+        let cloneo = []
+        let clonex = []
         if (xO == 'X') {
             setBoton2(xO)
             setXIsNext(!xIsNext)
-            cloneX = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton2(xO)
             setXIsNext(!xIsNext)
-            cloneO = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
         setPositions([...positions, position])
-        isWinner(clone)
-        console.log('X', positionsX)
-        console.log('O', positionsO)
     }
 
     const handleClick3 = () => {
         const position = 'c1'
-        let cloneX = []
-        let cloneO = []
+        let cloneo = []
+        let clonex = []
         if (xO == 'X') {
             setBoton3(xO)
             setXIsNext(!xIsNext)
-            cloneX = [...positionsX, position]
+            clonex = [...positionsX, position]
             setPositionsX([...positionsX, position])
+            isWinner(clonex)
         } else {
             setBoton3(xO)
             setXIsNext(!xIsNext)
-            cloneO = [...positionsO, position]
+            cloneo = [...positionsO, position]
             setPositionsO([...positionsO, position])
+            isWinner(cloneo)
         }
         setPositions([...positions, position])
-        isWinner(clone)
-        console.log('X', positionsX)
-        console.log('O', positionsO)
     }
 
     const handleClick4 = () => {
@@ -200,7 +212,6 @@ export const Game2 = () => {
             clone = [...positionsO, position]
             setPositionsO([...positionsO, position])
         }
-        setPositions([...positions, position])
     }
 
     const handleClick9 = () => {
@@ -217,8 +228,6 @@ export const Game2 = () => {
             clone = [...positionsO, position]
             setPositionsO([...positionsO, position])
         }
-        setPositions([...positions, position])
-        console.log(winner)
     }
 
     return (
@@ -235,7 +244,7 @@ export const Game2 = () => {
                     <button type="button" className="btn btn-outline-danger" onClick={handleClick6} disabled={boton6.length !== 0}>{boton6}</button>
                 </div>
                 <div className="border-row">
-                    <button type="button" className="btn btn-outline-danger" onClick={handleClick7} disabled={boton7.length !== 0}>{boton7}</button>
+                    <button type="button" className="btn btn-outline-danger" onClick={handleClick7} disabled={boton7.length !== 0 && winner}>{boton7}</button>
                     <button type="button" className="btn btn-outline-danger" onClick={handleClick8} disabled={boton8.length !== 0}>{boton8}</button>
                     <button type="button" className="btn btn-outline-danger" onClick={handleClick9} disabled={boton9.length !== 0}>{boton9}</button>
                 </div>
