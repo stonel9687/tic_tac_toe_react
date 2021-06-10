@@ -1,8 +1,9 @@
 import { useState, useContext, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Context } from '../../../store/appContex'
 
 export const Game2 = () => {
+    const history = useHistory()
     const { store } = useContext(Context)
     const [positions, setPositions] = useState([])
     const [positionsX, setPositionsX] = useState([])
@@ -18,10 +19,9 @@ export const Game2 = () => {
     const [boton9, setBoton9] = useState('')
     const [xIsNext, setXIsNext] = useState(true)
     const [winner, setWinner] = useState('')
-    const [winX, setWinX] = useState('')
-    const [winO, setWinO] = useState('')
-    const [draw, setDraw] = useState('')
-    const disableButonsWin = false
+    const [winX, setWinX] = useState(0)
+    const [winO, setWinO] = useState(0)
+    const [draw, setDraw] = useState(0)
 
     const combinaciones = [
         ['a1', 'b1', 'c1'],
@@ -51,8 +51,8 @@ export const Game2 = () => {
                     }
                 }, 0)
                 if (isXWinner === 3) {
+                    setWinX(winX + 1)
                     setWinner(`El Ganador es ${store.playerOne.name}`)
-                    setWinX(+1)
                 }
             })
         } else {
@@ -68,8 +68,8 @@ export const Game2 = () => {
                     }
                 }, 0)
                 if (isOWinner === 3) {
+                    setWinO(winO + 1)
                     setWinner(`El Ganador es ${store.playerTwo.name}`)
-                    setWinO(+1)
                 }
             })
         }
@@ -132,7 +132,7 @@ export const Game2 = () => {
             setPositionsO([...positionsO, position])
             isWinner(cloneo)
         }
-        //        setPositions([...positions, position])
+        setPositions([...positions, position])
     }
 
     const handleClick4 = () => {
@@ -152,7 +152,7 @@ export const Game2 = () => {
             setPositionsO([...positionsO, position])
             isWinner(cloneo)
         }
-        //        setPositions([...positions, position])
+        setPositions([...positions, position])
     }
 
     const handleClick5 = () => {
@@ -172,7 +172,7 @@ export const Game2 = () => {
             setPositionsO([...positionsO, position])
             isWinner(cloneo)
         }
-        //      setPositions([...positions, position])
+        setPositions([...positions, position])
     }
 
     const handleClick6 = () => {
@@ -192,7 +192,7 @@ export const Game2 = () => {
             setPositionsO([...positionsO, position])
             isWinner(cloneo)
         }
-        //     setPositions([...positions, position])
+        setPositions([...positions, position])
     }
 
     const handleClick7 = () => {
@@ -212,7 +212,7 @@ export const Game2 = () => {
             setPositionsO([...positionsO, position])
             isWinner(cloneo)
         }
-        //     setPositions([...positions, position])
+        setPositions([...positions, position])
     }
 
     const handleClick8 = () => {
@@ -232,6 +232,7 @@ export const Game2 = () => {
             setPositionsO([...positionsO, position])
             isWinner(cloneo)
         }
+        setPositions([...positions, position])
     }
 
     const handleClick9 = () => {
@@ -251,10 +252,11 @@ export const Game2 = () => {
             setPositionsO([...positionsO, position])
             isWinner(cloneo)
         }
+        setPositions([...positions, position])
     }
 
-    const handleRetry=()=>{
-                setPositionsX([])
+    const handleRetry = () => {
+        setPositionsX([])
         setPositionsO([])
         setBoton1('')
         setBoton2('')
@@ -268,6 +270,21 @@ export const Game2 = () => {
         setXIsNext(true)
         setWinner('')
     }
+
+    const handleReset = () => {
+        store.playerOne.name = ''
+        store.playerTwo.name = ''
+        store.playerOne.simbolSelected = ''
+        store.playerTwo.simbolSelected = ''
+        history.push('/')
+    }
+
+    useEffect(() => {
+        if (positionsX.length === 5 && winner === '' ) {
+            console.log('empate')
+            setDraw(draw + 1)
+        }
+    }, [positionsX, winner])
 
     return (
         <>
@@ -288,11 +305,9 @@ export const Game2 = () => {
                     <button type="button" className="btn btn-outline-danger" onClick={handleClick9} disabled={boton9.length !== 0 || winner}>{boton9}</button>
                 </div>
             </div>
-
             <hr />
             <p>{winner}</p>
             <div>
-
                 <h6>Player 1</h6>
                 <h6>{store.playerOne.name}</h6>
                 <h6></h6>
@@ -302,11 +317,8 @@ export const Game2 = () => {
                 <h6>{store.playerTwo.name}</h6>
                 <p>{winO} Wins</p>
                 <hr />
-
-                <p>2 deuce</p>
-                <Link to='/'>
-                    <button>Exit</button>
-                </Link>
+                <p>Draw: {draw}</p>
+                <button onClick={handleReset}>Exit</button>
                 <button onClick={handleRetry}>Play Again</button>
             </div>
         </>

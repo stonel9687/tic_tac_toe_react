@@ -18,7 +18,6 @@ const Home = () => {
             store.playerTwo.simbolSelected !== '' &&
             store.playerOne.name !== '' &&
             store.playerTwo.name !== ''
-
         players ? history.push('/game') : setErrorMessage('Debes completar los campos')
         console.log(players)
     }
